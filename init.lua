@@ -15,3 +15,29 @@ end)
 minetest.register_on_prejoinplayer(function(name, ip)
      minetest.chat_send_all(name .." is connecting!")
 end)
+
+-- Server Reboot.
+minetest.register_chatcommand("reboot", {
+      description = "Warn players and reboot server",
+      func = function(name, param)
+			if minetest.check_player_privs(name, {server=true}) == true then
+					minetest.chat_send_all("[Server] Rebooting in 1 minute!")
+          minetest.after(10, function()
+              minetest.chat_send_all("[Server] Rebooting in 50 seconds!")
+          minetest.after(10, function()
+              minetest.chat_send_all("[Server] Rebooting in 40 seconds!")
+          minetest.after(10, function()
+              minetest.chat_send_all("[Server] Rebooting in 30 seconds!")
+          minetest.after(10, function()
+              minetest.chat_send_all("[Server] Rebooting in 20 seconds!")
+          minetest.after(10, function()
+              minetest.chat_send_all("[Server] Rebooting in 10 seconds!")
+					minetest.request_shutdown()
+                    end)
+                  end)
+                end)
+              end)
+            end)
+          end
+				end
+})
