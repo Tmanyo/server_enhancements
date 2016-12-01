@@ -52,9 +52,14 @@ minetest.register_chatcommand("manipulate", {
           if minetest.check_player_privs(name, {server=true}) == true then
                local s = params
                local manipulated_name = s:match("%w+")
-               local manipulated_text = s:match(" %w+ ..+")
-               if minetest.check_player_privs(name, {server=true}) == true then
-                    minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
+               local manipulated_text = s:match(" %w+ ..+") or s:match(" %w+")
+               if manipulated_text == nil then
+                    minetest.chat_send_player(name, "Invalid Parameters.")
+                    return false
+               else
+                    if minetest.check_player_privs(name, {server=true}) == true then
+                         minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
+                    end
                end
           end
      end
