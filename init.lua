@@ -54,7 +54,7 @@ minetest.register_chatcommand("manipulate", {
                local manipulated_name = s:match("%w+")
                local manipulated_text = s:match(" %w+ ..+")
                if minetest.check_player_privs(name, {server=true}) == true then
-                    minetest.chat_send_all("<" .. manipulated_name .. "> " .. manipulated_text)
+                    minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
                end
           end
      end
