@@ -113,7 +113,7 @@ end)
 minetest.register_on_joinplayer(function(player)
      staff = read_table_data()
      local playername = player:get_player_name()
-     if staff.host == playername then
+     if staff.host[playername] then
           player:set_nametag_attributes({
                color = {r = 255, g = 0, b = 0}
           })
