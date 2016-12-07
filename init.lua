@@ -44,6 +44,8 @@ minetest.register_chatcommand("reboot", {
      end
 })
 
+minetest.register_privilege("nonmanipulatable", "Can't manipulate player with this priv.")
+
 -- Manipulate other players.
 minetest.register_chatcommand("manipulate", {
      params = "<name> <text>",
@@ -53,16 +55,20 @@ minetest.register_chatcommand("manipulate", {
                local s = params
                local manipulated_name = s:match("%w+")
                local manipulated_text = s:match(" %w+ ..+") or s:match(" %w+")
-               if manipulated_text == nil then
-                    minetest.chat_send_player(name, "Invalid Parameters.")
-                    return false
+               if minetest.check_player_privs(manipulated_name, {nonmanipulatable=true}) == true then
+                    minetest.chat_send_all("<" .. name ..">" .. manipulated_text)
                else
-                    if minetest.check_player_privs(name, {server=true}) == true then
-                         minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
-                    end
-                    if minetest.get_modpath("irc") then
-                         if irc.connected and irc.config.send_join_part then
-                              irc:say("<" .. manipulated_name .. ">" .. manipulated_text)
+                    if manipulated_text == nil then
+                         minetest.chat_send_player(name, "Invalid Parameters.")
+                         return false
+                    else
+                         if minetest.check_player_privs(name, {server=true}) == true then
+                              minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
+                         end
+                         if minetest.get_modpath("irc") then
+                              if irc.connected and irc.config.send_join_part then
+                                   irc:say("<" .. manipulated_name .. ">" .. manipulated_text)
+                              end
                          end
                     end
                end
