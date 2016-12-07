@@ -60,23 +60,12 @@ minetest.register_chatcommand("manipulate", {
                     if minetest.check_player_privs(name, {server=true}) == true then
                          minetest.chat_send_all("<" .. manipulated_name .. ">" .. manipulated_text)
                     end
+                    if minetest.get_modpath("irc") then
+                         if irc.connected and irc.config.send_join_part then
+                              irc:say("<" .. manipulate_name .. ">" .. manipulated_text)
+                         end
+                    end
                end
           end
-     end
-})
-
-minetest.register_chatcommand("away", {
-     description = "Show that you are away.",
-     func = function(name, param)
-          local name = minetest.get_player_by_name(name)
-          name:set_nametag_attributes({
-               color = {r = 0, g = 0, b = 0}
-          })
-          minetest.register_chatcommand("back", {
-               description = "Show that you are back.",
-               name:set_nametag_attributes({
-                    color = {r = 255, g = 255, b = 255}
-               })
-          })
      end
 })
