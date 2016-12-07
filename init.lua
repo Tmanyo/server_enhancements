@@ -57,6 +57,11 @@ minetest.register_chatcommand("manipulate", {
                local manipulated_text = s:match(" %w+ ..+") or s:match(" %w+")
                if minetest.check_player_privs(manipulated_name, {nonmanipulatable=true}) == true then
                     minetest.chat_send_all("<" .. name ..">" .. manipulated_text)
+                    if minetest.get_modpath("irc") then
+                         if irc.connected and irc.config.send_join_part then
+                              irc:say("<" .. name .. ">" .. manipulated_text)
+                         end
+                    end
                else
                     if manipulated_text == nil then
                          minetest.chat_send_player(name, "Invalid Parameters.")
