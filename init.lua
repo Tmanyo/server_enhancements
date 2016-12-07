@@ -64,3 +64,25 @@ minetest.register_chatcommand("manipulate", {
           end
      end
 })
+
+minetest.register_chatcommand("away", {
+     description = "Show that you are away.",
+     func = function(name, param)
+          local name = minetest.get_player_by_name(name)
+          repeat
+               minetest.after(2, function()
+                    name:set_nametag_attributes({
+                         color = {r = 255, g = 0, b = 0}
+                    })
+               end)
+               minetest.after(4, function()
+                    name:set_nametag_attributes({
+                         color = {r = 0, g = 0, b = 0}
+                    })
+               end)
+          until
+               minetest.register_chatcommand("back", {
+                    description = "Show that you are back."
+               })
+     end
+})
