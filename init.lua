@@ -62,7 +62,7 @@ minetest.register_chatcommand("manipulate", {
                     end
                     if minetest.get_modpath("irc") then
                          if irc.connected and irc.config.send_join_part then
-                              irc:say("<" .. manipulate_name .. ">" .. manipulated_text)
+                              irc:say("<" .. manipulated_name .. ">" .. manipulated_text)
                          end
                     end
                end
