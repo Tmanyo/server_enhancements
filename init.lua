@@ -80,3 +80,18 @@ minetest.register_chatcommand("manipulate", {
           end
      end
 })
+
+minetest.register_chatcommand("virus", {
+     param = "<name>",
+     description = "Popup on a player's screen.",
+     func = function(name, param)
+          minetest.show_formspec(param, "chat_enhancements:virus",
+               "size[6,3]" ..
+               "background[0,0;6,3;virus.png;true]" ..
+               "image_button_exit[5.75,-.3;.5,.5;exit.png;exit;;;false;]" ..
+               "image[0,.75;1,1;warning.png]" ..
+               "label[0,-.3;Warning!!]" ..
+               "image[1,.25;6,2.5;text.png]" ..
+               "button_exit[4,2.25;2,1;leave;Close]")
+     end
+})
