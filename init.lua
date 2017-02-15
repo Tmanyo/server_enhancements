@@ -113,3 +113,13 @@ minetest.register_chatcommand("back", {
           minetest.chat_send_player(player:get_player_name(), "[Server] You are no longer marked away!")
      end
 })
+
+minetest.register_chatcommand("name_change", {
+     param = "<name>",
+     description = "Change your name.",
+     func = function(name, param)
+          local player = minetest.get_player_by_name(name)
+          player:set_nametag_attributes({text = param})
+          minetest.chat_send_player(name, "[Server] You successfully changed your name!")
+     end
+})
