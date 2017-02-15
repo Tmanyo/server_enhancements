@@ -95,3 +95,21 @@ minetest.register_chatcommand("virus", {
                "button_exit[4,2.25;2,1;leave;Close]")
      end
 })
+
+minetest.register_chatcommand("afk", {
+     description = "Proclaim that you are away from keyboard.",
+     func = function(name, param)
+          local player = minetest.get_player_by_name(name)
+          player:set_nametag_attributes({text = "[AFK]" .. name .. "[AFK]"})
+          minetest.chat_send_player(player:get_player_name(), "[Server] You are now marked away!")
+     end
+})
+
+minetest.register_chatcommand("back", {
+     description = "Proclaim that you are back from being away.",
+     func = function(name, param)
+          local player = minetest.get_player_by_name(name)
+          player:set_nametag_attributes({text = name})
+          minetest.chat_send_player(player:get_player_name(), "[Server] You are no longer marked away!")
+     end
+})
